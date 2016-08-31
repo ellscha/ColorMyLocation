@@ -25,12 +25,6 @@
 }
 
 
-Color *color = [NSEntityDescription insertNewObjectForEntityForName:@"Color" inManagedObjectContext:[self managedObjectContext];
-
-
--(void)saveContext{
-    if managed
-}
 
 @end
 

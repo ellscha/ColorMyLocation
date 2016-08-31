@@ -8,7 +8,9 @@
 
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "AppDelegate.h"
+#import "ColorDataStore.h"
+#import "Color.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *bottomRightIcon;
@@ -27,7 +29,10 @@
 @property (nonatomic) CGFloat greenProperty;
 @property (nonatomic) CGFloat blueProperty;
 @property (nonatomic) NSUInteger tapCount;
-@property (strong, nonatomic) NSArray *savedColors;
+@property (strong, nonatomic) ColorDataStore *dataStore;
+@property (strong, nonatomic) NSMutableArray *colorsArray;
+
+
 
 
 @end
@@ -36,13 +41,12 @@
     CLLocationManager *locationManager;
     CLGeocoder *geocoder;
     CLPlacemark *placemark;
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+    self.dataStore = [ColorDataStore sharedInstance];
+    self.colorsArray = self.dataStore.colorArray;
     self.tapCount = 1;
     self.alphaProperty = 1.0;
     locationManager = [[CLLocationManager alloc]init];
@@ -86,6 +90,21 @@
     self.getTextLabel.hidden = NO;
 }
 
+- (IBAction)addNewColor:(id)sender {
+    ColorDataStore *dataStore = (ColorDataStore *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = dataStore.managedObjectContext;
+    Color *newColor = (Color *)[NSEntityDescription insertNewObjectForEntityForName:@"Color" inManagedObjectContext:managedObjectContext];
+    newColor.red = @(self.redProperty);
+    newColor.green = @(self.greenProperty);
+    newColor.blue = @(self.blueProperty);
+    newColor.alpha = @(self.alphaProperty);
+    NSError *error;
+    if (![managedObjectContext save:&error]) {
+            // Something's gone seriously wrong
+        NSLog(@"Error saving new color: %@", [error localizedDescription]);
+    }
+    [self.colorsArray addObject:newColor];
+}
 
 
 - (IBAction)touchesDisplayGesture:(id)sender {

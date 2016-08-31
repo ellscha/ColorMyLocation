@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 @interface ColorDataStore : NSObject
 
-@property (strong, nonatomic) NSArray *colorArray;
+@property (strong, nonatomic) NSMutableArray *colorArray;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
