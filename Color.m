@@ -12,4 +12,9 @@
 
 // Insert code here to add functionality to your managed object subclass
 
+- (UIColor *)derivedColor {
+    return [UIColor colorWithRed:[self.red floatValue] green:[self.green floatValue] blue:[self.blue floatValue] alpha:[self.alpha floatValue]];
+}
+
+
 @end
