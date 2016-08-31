@@ -70,6 +70,23 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchesDisplayGesture:)];
     [self.view addGestureRecognizer:tapGesture];
     
+    
+    NSManagedObjectContext *managedObjectContext = [(ColorDataStore *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Color" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    [request setSortDescriptors:sortDescriptors];
+        // Fetch the records and handle an error
+    NSError *error;
+    self.colorsArray = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (!self.colorsArray) {
+            // This is a serious error
+            // Handle accordingly
+        NSLog(@"Failed to load colors from disk");
+    }
+    
 }
 
 
@@ -98,6 +115,10 @@
     newColor.green = @(self.greenProperty);
     newColor.blue = @(self.blueProperty);
     newColor.alpha = @(self.alphaProperty);
+    newColor.longitude = @(self.longitude);
+    newColor.latitude = @(self.latitude);
+    newColor.altitude = @(self.altitude);
+    newColor.address = self.addressLabel.text;
     NSError *error;
     if (![managedObjectContext save:&error]) {
             // Something's gone seriously wrong
