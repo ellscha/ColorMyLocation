@@ -66,34 +66,6 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchesDisplayGesture:)];
     [self.view addGestureRecognizer:tapGesture];
     
-//        //shows the address
-//    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(saveColor:)];
-//    [self.view addGestureRecognizer:longPressGesture];
-    
-        //pinch for clear screen
-        //    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(clearGesture:)];
-        //    [self.view addGestureRecognizer:pinchGesture];
-        //
-        //        //pan for icons
-        //    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(iconDisplay:)];
-        //    [self.view addGestureRecognizer:panGesture];
-        //
-        //        //rotate to display the app name
-        //    UIRotationGestureRecognizer *rotateGesture = [[UIRotationGestureRecognizer alloc]initWithTarget:self action:@selector(showNameGesture:)];
-        //    [self.view addGestureRecognizer:rotateGesture];
-        
-        //FAKFontAwesome *twelve = [FAKFontAwesome starIconWithSize:15];
-        //   self.bottomRightIcon.attributedText = [twelve attributedString];
-        
-        //    FAKFontAwesome *three = [FAKFontAwesome starIconWithSize:15];
-        //    self.bottomLeftIcon.attributedText = [three attributedString];
-        //
-        //    FAKFontAwesome *six = [FAKFontAwesome starIconWithSize:15];
-        //    self.topLeftIcon.attributedText = [six attributedString];
-        //
-        //    FAKFontAwesome *nine = [FAKFontAwesome starIconWithSize:15];
-        //    self.topRightIcon.attributedText = [nine attributedString];
-        //
 }
 
 
@@ -109,49 +81,6 @@
 }
 
 
-//- (IBAction)saveColor:(UILongPressGestureRecognizer *)press {
-//        //So that you can move your finger during the long press we use UIGestureRecognizerStateChanged rather than UIGestureRecognizerStateBegan.
-//        //press.state == UIGestureRecognizerStateChanged
-//    
-//    if (press.state == UIGestureRecognizerStateBegan) {
-//        self.addressLabel.hidden = NO;
-//    }else if (self.addressLabel.hidden == NO && press.state != UIGestureRecognizerStateEnded){
-//        self.addressLabel.hidden = YES;
-//    }
-//}
-//- (IBAction)iconDisplay:(UIPanGestureRecognizer *)sender {
-//    if (sender.state == UIGestureRecognizerStateBegan) {
-//        
-//        self.tapCount += 1;
-//    }
-//    if (self.tapCount % 2 == 0) {
-//        self.topLeftIcon.hidden = NO;
-//        self.topRightIcon.hidden = NO;
-//        self.bottomLeftIcon.hidden = NO;
-//        self.bottomRightIcon.hidden = NO;
-//    }
-//    else {
-//        self.topLeftIcon.hidden = YES;
-//        self.topRightIcon.hidden = YES;
-//        self.bottomLeftIcon.hidden = YES;
-//        self.bottomRightIcon.hidden = YES;
-//        
-//    }
-//    
-//}
-    //- (IBAction)clearGesture:(UIPinchGestureRecognizer *)sender {
-    ////    if (self.getTextLabel.hidden && sender.state == UIGestureRecognizerStateEnded){
-    ////        NSLog(@"unhide MEEEE");
-    ////        self.getTextLabel.hidden = NO;
-    ////    }
-    ////    else
-    //    if (self.getTextLabel.hidden == NO && sender.state == UIGestureRecognizerStateEnded) {
-    //        NSLog(@"hiden! FOOLED YA");
-    //        self.getTextLabel.hidden = YES;
-    ////        [self clearView];
-    //
-    //    }
-    //}
 
 - (IBAction)showNameGesture:(UIRotationGestureRecognizer *)sender {
     self.getTextLabel.hidden = NO;
@@ -185,20 +114,7 @@
         
     }
 }
-    //
-    //-(void)clearView{
-    //    self.colorLabel.hidden = YES;
-    //    self.altitudeLabel.hidden = YES;
-    //    self.longitudeLabel.hidden = YES;
-    //    self.latitudeLabel.hidden = YES;
-    //    self.bottomLeftIcon.hidden = YES;
-    //    self.bottomRightIcon.hidden = YES;
-    //    self.topRightIcon.hidden = YES;
-    //    self.topLeftIcon.hidden = YES;
-    //    self.addressLabel.hidden = YES;
-    //}
-    //
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+  - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = [locations lastObject];
     if (location != nil) {
         CGFloat inchesOfAlt = fabs(location.altitude * 39.37);
@@ -223,7 +139,6 @@
             self.altitude = inchesOfAlt/1000000;
         }
         
-            // NSLog(@"COLOR INPUT ALTITUDE!!!!!!######## %f", self.altitude);
         
         if (location.coordinate.longitude <= 0) {
             self.longitude = (255.0 + location.coordinate.longitude)/255.000;
@@ -231,20 +146,9 @@
         else if (fabs(location.coordinate.longitude) > 0) {
             self.longitude = (255.0 - location.coordinate.longitude)/255.000;
         }
-            //        self.longitude = fabs(location.coordinate.longitude / 1.416)/255.000;
-        
-            //        self.longitude = (location.coordinate.longitude + 180)/360;
-            //NSLog(@"COLOR INPUT longitude!!!!!!######## %f", self.longitude);
-            //        self.latitude = fabs(location.coordinate.latitude / 2.83333)/255.000;
-            //        self.latitude = (location.coordinate.latitude + 90)/180;
-            //        if ((location.coordinate.latitude) <= 0) {
-            //            self.latitude = (127.00 + location.coordinate.latitude)/127.00;
-            //        }
-            //
         
         self.latitude = fabs(location.coordinate.latitude)/100;
         
-            // NSLog(@"COLOR INPUT latitude!!!!!!######## %f", self.latitude);
         
         self.latitudeLabel.text = [NSString stringWithFormat:@"Latitude: %f%@", location.coordinate.latitude, @"\u00B0"];
         self.longitudeLabel.text = [NSString stringWithFormat:@"Longitude: %f%@", location.coordinate.longitude, @"\u00B0"];
@@ -259,7 +163,6 @@
     self.colorMyLocation = [UIColor colorWithRed:self.redProperty green:self.greenProperty blue:self.blueProperty alpha:self.alphaProperty];
     self.view.backgroundColor = self.colorMyLocation;
     
-        //    self.colorLabel.text = [NSString stringWithFormat:@"%@", self.colorMyLocation];
     CGColorRef colorRef = [self.colorMyLocation CGColor];
     NSInteger countComponents = CGColorGetNumberOfComponents(colorRef);
     CGFloat redText;
@@ -288,7 +191,6 @@
         self.addressLabel.textColor = textColor;
         
         self.getTextLabel.textColor = textColor;
-            //self.stateLabel.textColor = textColor;
         
         
         NSLog(@"Resolving the Address");
@@ -296,7 +198,7 @@
             NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
             if (error == nil && [placemarks count] > 0) {
                 placemark = [placemarks lastObject];
-                    //self.stateLabel.text = [NSString stringWithFormat:@"Hope you are enjoying your day in the one and only beautiful %@!", placemark.locality];
+                
                 NSString *subThoroughfare = placemark.subThoroughfare;
                 if (subThoroughfare == nil) {
                     subThoroughfare = @"";
@@ -344,6 +246,5 @@
 }
 
 @end
-    //    CLLocation *currentLocation = [locations lastObject];
 
 
