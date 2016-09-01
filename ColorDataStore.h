@@ -20,10 +20,4 @@
 
 
 
--(void)saveContext;
--(void)fetchData;
--(NSURL *)applicationDocumentsDirectory;
-
-
-
 @end
