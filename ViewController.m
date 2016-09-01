@@ -45,6 +45,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.dataStore = [ColorDataStore sharedInstance];
     self.colorsArray = self.dataStore.colorArray;
     self.tapCount = 1;

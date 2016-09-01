@@ -14,7 +14,8 @@
 
 @import CoreLocation;
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate>
+@interface ViewController : UIViewController
+<CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
@@ -22,4 +23,3 @@
 
 
 @end
-

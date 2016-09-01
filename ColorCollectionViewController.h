@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ColorCollectionViewController : UICollectionViewController
+@property (strong, nonatomic) NSMutableArray* colorsArray;
 
 @end
 

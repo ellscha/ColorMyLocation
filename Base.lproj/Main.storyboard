@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VAK-JE-N7D">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -9,7 +9,7 @@
         <!--Color-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Color" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="color" title="Color" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -96,10 +96,10 @@
             </objects>
             <point key="canvasLocation" x="1154" y="109"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Palette-->
         <scene sceneID="FzT-SJ-BmV">
             <objects>
-                <collectionViewController id="pxj-OY-uLR" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="palette" title="Palette" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pxj-OY-uLR" customClass="ColorCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="FPo-nj-tnx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,14 +110,41 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vNv-fN-wGr">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="vNv-fN-wGr">
+                                <rect key="frame" x="0.0" y="268" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" red="1" green="0.6403900682" blue="0.84423997799999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="emptyArray" id="2TE-ga-8gi">
+                                <rect key="frame" x="60" y="0.0" width="491" height="585"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="491" height="585"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6FP-lv-8L1">
+                                            <rect key="frame" x="0.0" y="0.0" width="491" height="585"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <string key="text">This is your palette. Swipe left to see the color associated with your location. if you like the color, click and hold down on page to save it to your palette.</string>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="32"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="6FP-lv-8L1" firstAttribute="width" secondItem="2TE-ga-8gi" secondAttribute="width" id="Nc5-RA-0dv"/>
+                                    <constraint firstItem="6FP-lv-8L1" firstAttribute="centerX" secondItem="2TE-ga-8gi" secondAttribute="centerX" id="OKp-Ly-Tfc"/>
+                                    <constraint firstItem="6FP-lv-8L1" firstAttribute="centerY" secondItem="2TE-ga-8gi" secondAttribute="centerY" id="gWx-3S-imm"/>
+                                    <constraint firstItem="6FP-lv-8L1" firstAttribute="height" secondItem="2TE-ga-8gi" secondAttribute="height" id="hzr-TF-q3P"/>
+                                </constraints>
+                                <size key="customSize" width="491" height="585"/>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -130,13 +157,13 @@
             </objects>
             <point key="canvasLocation" x="1846" y="109"/>
         </scene>
-        <!--Page View Controller-->
+        <!--Story Board Page View Controller-->
         <scene sceneID="rgD-es-EQm">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="VAK-JE-N7D" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="VAK-JE-N7D" customClass="StoryBoardPageViewController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CSL-V6-nYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1154" y="879"/>
+            <point key="canvasLocation" x="1560" y="933"/>
         </scene>
     </scenes>
     <resources>

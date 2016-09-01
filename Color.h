@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double altitude;
 @property (nonatomic) NSDate *createdAt;
 
+- (UIColor *)derivedColor;
+- (UIColor *)textColor;
+
 // Insert code here to declare functionality of your managed object subclass
 
 @end
