@@ -73,7 +73,7 @@
     UILongPressGestureRecognizer *addColor = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(addNewColor:)];
     [self.view addGestureRecognizer:addColor];
     
-    NSManagedObjectContext *managedObjectContext = [(ColorDataStore *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    NSManagedObjectContext *managedObjectContext = [[ColorDataStore sharedInstance]managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Color" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
@@ -106,7 +106,7 @@
 
 - (IBAction)addNewColor:(id)sender {
     NSLog(@"Long Press Gesture Recognized");
-    ColorDataStore *dataStore = (ColorDataStore *)[[UIApplication sharedApplication] delegate];
+    ColorDataStore *dataStore = [ColorDataStore sharedInstance];
     NSManagedObjectContext *managedObjectContext = dataStore.managedObjectContext;
     Color *newColor = (Color *)[NSEntityDescription insertNewObjectForEntityForName:@"Color" inManagedObjectContext:managedObjectContext];
     newColor.red = self.redProperty;

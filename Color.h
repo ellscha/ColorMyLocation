@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double longitude;
 @property (nonatomic) double latitude;
 @property (nonatomic) double altitude;
-@property (nonatomic) NSTimeInterval createdAt;
+@property (nonatomic) NSDate *createdAt;
 
 // Insert code here to declare functionality of your managed object subclass
 
