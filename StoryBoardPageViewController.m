@@ -20,20 +20,16 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-    
-}
--(void)loadView{
     [self setDelegate:self];
     [self setDataSource:self];
+    
     UIViewController *colorPaletteVC = [self.storyboard instantiateViewControllerWithIdentifier:@"palette"];
     UIViewController *colorMyLocationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"color"];
     
     [self.viewControllerArray addObject:colorMyLocationVC];
     [self.viewControllerArray addObject:colorPaletteVC];
     [self setViewControllers:self.viewControllerArray direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-    [self.storyboard instantiateInitialViewController];
 
-//    [self setViewControllerArray:self.viewControllerArray];
  
     
 }
@@ -75,6 +71,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
         // Dispose of any resources that can be recreated.
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController
+        willTransitionToViewControllers:(NSArray *)pendingViewControllers{
+    
 }
 
 /*
