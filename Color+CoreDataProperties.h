@@ -2,7 +2,7 @@
 //  Color+CoreDataProperties.h
 //  ColorMyLocation
 //
-//  Created by Elli Scharlin on 8/31/16.
+//  Created by Elli Scharlin on 9/1/16.
 //  Copyright © 2016 ElliBelly. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,14 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Color (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSNumber *red;
-@property (nullable, nonatomic, retain) NSNumber *green;
-@property (nullable, nonatomic, retain) NSNumber *blue;
-@property (nullable, nonatomic, retain) NSNumber *alpha;
+@property (nonatomic) double red;
+@property (nonatomic) double green;
+@property (nonatomic) double blue;
+@property (nonatomic) double alpha;
 @property (nullable, nonatomic, retain) NSString *address;
-@property (nullable, nonatomic, retain) NSNumber *longitude;
-@property (nullable, nonatomic, retain) NSNumber *latitude;
-@property (nullable, nonatomic, retain) NSNumber *altitude;
+@property (nonatomic) double longitude;
+@property (nonatomic) double latitude;
+@property (nonatomic) double altitude;
+@property (nonatomic) NSTimeInterval createdAt;
 
 @end
 

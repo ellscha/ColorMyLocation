@@ -2,7 +2,7 @@
 //  Color+CoreDataProperties.m
 //  ColorMyLocation
 //
-//  Created by Elli Scharlin on 8/31/16.
+//  Created by Elli Scharlin on 9/1/16.
 //  Copyright © 2016 ElliBelly. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -21,5 +21,6 @@
 @dynamic longitude;
 @dynamic latitude;
 @dynamic altitude;
+@dynamic createdAt;
 
 @end

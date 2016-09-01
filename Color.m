@@ -7,13 +7,25 @@
 //
 
 #import "Color.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation Color
 
 // Insert code here to add functionality to your managed object subclass
-
+- (CLLocationCoordinate2D)location {
+    return CLLocationCoordinate2DMake(self.latitude, self.longitude);
+}
+- (double)altitude{
+    return self.altitude;
+}
+-(NSString *)returnAddress{
+    return self.address;
+}
 - (UIColor *)derivedColor {
-    return [UIColor colorWithRed:[self.red floatValue] green:[self.green floatValue] blue:[self.blue floatValue] alpha:[self.alpha floatValue]];
+    return [UIColor colorWithRed:self.red green:self.green blue:self.blue  alpha:self.alpha];
+}
+-(UIColor *)textColor {
+    return [UIColor colorWithRed:(1-self.red) green:(1-self.green) blue:(1-self.blue) alpha:self.alpha];
 }
 
 

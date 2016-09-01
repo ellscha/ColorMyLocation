@@ -70,12 +70,14 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchesDisplayGesture:)];
     [self.view addGestureRecognizer:tapGesture];
     
+    UILongPressGestureRecognizer *addColor = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(addNewColor:)];
+    [self.view addGestureRecognizer:addColor];
     
     NSManagedObjectContext *managedObjectContext = [(ColorDataStore *)[[UIApplication sharedApplication] delegate] managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Color" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     [request setSortDescriptors:sortDescriptors];
         // Fetch the records and handle an error
@@ -102,23 +104,20 @@
 }
 
 
-
-- (IBAction)showNameGesture:(UIRotationGestureRecognizer *)sender {
-    self.getTextLabel.hidden = NO;
-}
-
 - (IBAction)addNewColor:(id)sender {
+    NSLog(@"Long Press Gesture Recognized");
     ColorDataStore *dataStore = (ColorDataStore *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = dataStore.managedObjectContext;
     Color *newColor = (Color *)[NSEntityDescription insertNewObjectForEntityForName:@"Color" inManagedObjectContext:managedObjectContext];
-    newColor.red = @(self.redProperty);
-    newColor.green = @(self.greenProperty);
-    newColor.blue = @(self.blueProperty);
-    newColor.alpha = @(self.alphaProperty);
-    newColor.longitude = @(self.longitude);
-    newColor.latitude = @(self.latitude);
-    newColor.altitude = @(self.altitude);
+    newColor.red = self.redProperty;
+    newColor.green = self.greenProperty;
+    newColor.blue = self.blueProperty;
+    newColor.alpha = self.alphaProperty;
+    newColor.longitude = self.longitude;
+    newColor.latitude = self.latitude;
+    newColor.altitude = self.altitude;
     newColor.address = self.addressLabel.text;
+    newColor.createdAt = [[NSDate alloc]init];
     NSError *error;
     if (![managedObjectContext save:&error]) {
             // Something's gone seriously wrong

@@ -13,15 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Color : NSManagedObject
 
-@property (nonatomic, retain) NSNumber *red;
-@property (nonatomic, retain) NSNumber *green;
-@property (nonatomic, retain) NSNumber *blue;
-@property (nonatomic, retain) NSNumber *alpha;
-@property (nonatomic, retain) NSString *address;
-@property (nonatomic, retain) NSNumber *longitude;
-@property (nonatomic, retain) NSNumber *latitude;
-@property (nonatomic, retain) NSNumber *altitude;
-@property (readonly, nonatomic, strong) UIColor *derivedColor;
+@property (nonatomic) double red;
+@property (nonatomic) double green;
+@property (nonatomic) double blue;
+@property (nonatomic) double alpha;
+@property (nullable, nonatomic, retain) NSString *address;
+@property (nonatomic) double longitude;
+@property (nonatomic) double latitude;
+@property (nonatomic) double altitude;
+@property (nonatomic) NSTimeInterval createdAt;
+
 // Insert code here to declare functionality of your managed object subclass
 
 @end
