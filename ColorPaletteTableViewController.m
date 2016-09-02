@@ -50,13 +50,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"colorID" forIndexPath:indexPath];
     Color *cellColor = self.colorsArray[indexPath.row];
-    NSString *address = cellColor.address;
 //    NSString *location = [NSString stringWithFormat:@"lat: %d, long: %d, alt: %d m", cellColor.latitude, cellColor.longitude, cellColor.altitude];
     UIColor *textColor = [cellColor textColor];
     UIColor *colorBackground = [cellColor derivedColor];
     [cell setBackgroundColor:colorBackground];
 //    cell.detailTextLabel.text = address;
-    cell.textLabel.text = address;
+    cell.textLabel.text = [NSString stringWithFormat:@"R: %.4f | G: %.4f | B: %.4f",cellColor.red,cellColor.green,cellColor.blue];
     cell.textLabel.textColor = textColor;
 //    cell.detailTextLabel.textColor = textColor;
     
@@ -102,13 +101,6 @@
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    ColorDetailViewController *destinationVC = [[ColorDetailViewController alloc]init];
-    
-//    destinationVC.color = [self.colorsArray];
-}
-
+g
 
 @end

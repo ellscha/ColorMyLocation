@@ -11,7 +11,7 @@
 
 
 @interface ColorDetailViewController : UIViewController
-@property (strong, nonatomic) NSString *color;
+@property (strong, nonatomic) Color *color;
 
 
 @end
