@@ -98,9 +98,13 @@
 }
 */
 
-
+-(BOOL)prefersStatusBarHidden{
+    
+    return YES;
+    
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-g
+
 
 @end
