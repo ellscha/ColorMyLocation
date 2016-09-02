@@ -46,9 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[UINavigationBar appearance]setTitleTextAttributes:(@"color", self.colorMyLocation)];
-    [[UINavigationBar appearance]setAlpha:0.3f];
+    self.navigationController.navigationBar.barTintColor = self.colorMyLocation;
     self.dataStore = [ColorDataStore sharedInstance];
     self.colorsArray = self.dataStore.colorArray;
     self.tapCount = 1;
@@ -59,7 +57,7 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     
-//    self.getTextLabel.text = @"Color My Location";
+        //    self.getTextLabel.text = @"Color My Location";
     
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [locationManager requestWhenInUseAuthorization];
@@ -70,12 +68,11 @@
     self.longitudeLabel.alpha = 1;
     self.latitudeLabel.alpha = 1;
     self.addressLabel.alpha = 1;
-
+    self.navigationController.navigationBar.alpha = 1;
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchesDisplayGesture:)];
     [self.view addGestureRecognizer:tapGesture];
     
-    UILongPressGestureRecognizer *addColor = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(addNewColor:)];
-    [self.view addGestureRecognizer:addColor];
     
     NSManagedObjectContext *managedObjectContext = [[ColorDataStore sharedInstance]managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Color" inManagedObjectContext:managedObjectContext];
@@ -107,12 +104,30 @@
     NSLog(@"Error");
 }
 
-
-- (IBAction)addNewColor:(id)sender {
+- (IBAction)addNewColorTapped:(id)sender {
     NSLog(@"Long Press Gesture Recognized");
     ColorDataStore *dataStore = [ColorDataStore sharedInstance];
     NSManagedObjectContext *managedObjectContext = dataStore.managedObjectContext;
     Color *newColor = (Color *)[NSEntityDescription insertNewObjectForEntityForName:@"Color" inManagedObjectContext:managedObjectContext];
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"New Color"
+                                                                   message:@"Would you like to add this color to your palette?"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {    [self.colorsArray addObject:newColor];
+}];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"cancelled %lu", [self.colorsArray count]);
+    }];
+    
+    
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
     newColor.red = self.redProperty;
     newColor.green = self.greenProperty;
     newColor.blue = self.blueProperty;
@@ -127,7 +142,9 @@
             // Something's gone seriously wrong
         NSLog(@"Error saving new color: %@", [error localizedDescription]);
     }
-    [self.colorsArray addObject:newColor];
+
+    
+
 }
 
 
@@ -140,6 +157,7 @@
             self.longitudeLabel.alpha = 1;
             self.latitudeLabel.alpha = 1;
             self.addressLabel.alpha = 1;
+            self.navigationController.navigationBar.alpha = 1;
             
         }];
             //        self.getTextButton.titleLabel.text = @"Hide Location";
@@ -152,12 +170,13 @@
             self.longitudeLabel.alpha = 0;
             self.latitudeLabel.alpha = 0;
             self.addressLabel.alpha = 0;
+            self.navigationController.navigationBar.alpha = 0;
         }];
             //        self.getTextButton.titleLabel.text = @"Display Location";
         
     }
 }
-  - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = [locations lastObject];
     if (location != nil) {
         CGFloat inchesOfAlt = fabs(location.altitude * 39.37);
@@ -225,7 +244,7 @@
         greenText = 1 - green;
         blueText = 1 - blue;
         UIColor *textColor = [UIColor colorWithRed:redText green:greenText blue:blueText alpha:self.alphaProperty];
-//        [[UINavigationBar appearance]setTintColor:textColor];
+            //        [[UINavigationBar appearance]setTintColor:textColor];
         self.colorLabel.textColor = textColor;
         self.bottomRightIcon.textColor = textColor;
         self.altitudeLabel.textColor = textColor;
@@ -291,7 +310,7 @@
 -(void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     if ([identifier isEqualToString:@"collectionSegue"]){
         ColorCollectionViewController *destinationVC = [[ColorCollectionViewController alloc]init];
-        destinationVC.colorsArray = self.colorsArray;
+        destinationVC.colorsArray = self.dataStore.colorArray;
     }
 }
 @end

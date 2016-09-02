@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -60,7 +62,7 @@
                             <constraint firstItem="iQU-1m-oQT" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Dna-8c-wIt"/>
                             <constraint firstItem="GH2-CK-Sa2" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="EkL-GQ-HqN"/>
                             <constraint firstItem="O8E-YQ-jOS" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="K7u-Og-59n"/>
-                            <constraint firstItem="NRn-UB-scV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="KhQ-Ul-hcI"/>
+                            <constraint firstItem="NRn-UB-scV" firstAttribute="topMargin" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="KhQ-Ul-hcI"/>
                             <constraint firstItem="NRn-UB-scV" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="LT6-Xj-vCA"/>
                             <constraint firstItem="O8E-YQ-jOS" firstAttribute="top" secondItem="4WV-sg-cl6" secondAttribute="bottom" constant="8" symbolic="YES" id="MFM-bM-aKR"/>
                             <constraint firstItem="4WV-sg-cl6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RXv-hr-RCN"/>
@@ -81,6 +83,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Your Current Color" id="MK8-XN-RGM">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="Gfc-OV-Ec0">
+                            <connections>
+                                <action selector="addNewColorTapped:" destination="BYZ-38-t0r" id="wg4-5u-MzQ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="favoriteColor" id="1xc-yD-sZP">
                             <connections>
                                 <segue destination="pxj-OY-uLR" kind="show" id="lg9-ZX-Ya1"/>
@@ -164,13 +171,18 @@
         <!--Navigation Controller-->
         <scene sceneID="Zjf-bF-Aup">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mFa-XF-prn" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnTap="YES" id="mFa-XF-prn" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eYH-t1-QRO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.37029577325996643" green="1" blue="0.37616442612305978" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="dba-DT-8K3">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="hAf-Ia-jkO"/>
                     </connections>
