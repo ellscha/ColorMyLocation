@@ -17,16 +17,18 @@
 
 static NSString * const reuseIdentifierForCell = @"cell";
 static NSString * const reuseIdentifierForZero = @"emptyArray";
+-(void)viewWillAppear:(BOOL)animated{
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
 
+}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     self.dataStore = [ColorDataStore sharedInstance];
-    [self.collectionView reloadData];
-    [self.collectionView layoutIfNeeded];
-//    [self configure cells];
+    //    [self configure cells];
         // Uncomment the following line to preserve selection between presentations
-         self.clearsSelectionOnViewWillAppear = NO;
+         self.clearsSelectionOnViewWillAppear = YES;
     ColorDataStore *dataStore = [ColorDataStore sharedInstance];
     self.colorsArray = dataStore.colorArray;
         // Register cell classes
@@ -63,7 +65,6 @@ static NSString * const reuseIdentifierForZero = @"emptyArray";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    [self reloadInputViews];
     if (self.dataStore.colorArray == nil || [self.dataStore.colorArray count] == 0){
         return 1;
     }
