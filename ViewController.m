@@ -30,10 +30,7 @@
 @property (nonatomic) CGFloat greenProperty;
 @property (nonatomic) CGFloat blueProperty;
 @property (nonatomic) NSUInteger tapCount;
-@property (strong, nonatomic) ColorDataStore *dataStore;
-@property (strong, nonatomic) NSMutableArray *colorsArray;
-
-
+@property (retain, readwrite) ColorDataStore *dataStore;
 
 
 @end
@@ -48,7 +45,6 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.barTintColor = self.colorMyLocation;
     self.dataStore = [ColorDataStore sharedInstance];
-    self.colorsArray = self.dataStore.colorArray;
     self.tapCount = 1;
     self.alphaProperty = 1.0;
     locationManager = [[CLLocationManager alloc]init];
@@ -83,8 +79,8 @@
     [request setSortDescriptors:sortDescriptors];
         // Fetch the records and handle an error
     NSError *error;
-    self.colorsArray = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-    if (!self.colorsArray) {
+    self.dataStore.colorArray = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+    if (self.dataStore.colorArray) {
             // This is a serious error
             // Handle accordingly
         NSLog(@"Failed to load colors from disk");
@@ -115,11 +111,11 @@
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {    [self.colorsArray addObject:newColor];
+                                                          handler:^(UIAlertAction * action) {    [self.dataStore.colorArray addObject:newColor];
 }];
     
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"cancelled %lu", [self.colorsArray count]);
+        NSLog(@"cancelled %lu", [self.dataStore.colorArray count]);
     }];
     
     
@@ -218,12 +214,14 @@
         
         
     }
-    NSLog(@"Long: %@ ## \n Lat: %@ ## \n Alt: %@ m", self.longitudeLabel.text, self.latitudeLabel.text, self.altitudeLabel.text);
+        //NSLog(@"Long: %@ ## \n Lat: %@ ## \n Alt: %@ m", self.longitudeLabel.text, self.latitudeLabel.text, self.altitudeLabel.text);
     self.greenProperty = self.latitude;
     self.blueProperty = self.longitude;
     self.redProperty = self.altitude;
     self.colorMyLocation = [UIColor colorWithRed:self.redProperty green:self.greenProperty blue:self.blueProperty alpha:self.alphaProperty];
     self.view.backgroundColor = self.colorMyLocation;
+    self.navigationController.navigationBar.tintColor = self.colorMyLocation;
+
     
     CGColorRef colorRef = [self.colorMyLocation CGColor];
     NSInteger countComponents = CGColorGetNumberOfComponents(colorRef);
@@ -237,7 +235,7 @@
         CGFloat blue   = components[2];
         CGFloat alpha = components[3];
         
-        NSLog(@"Alpha is %f", alpha);
+            //NSLog(@"Alpha is %f", alpha);
         
         self.colorLabel.text =[NSString stringWithFormat:@"R: %.4f\nG: %.4f\nB: %.4f",red,green,blue];
         redText = 1 - red;
@@ -253,12 +251,11 @@
         self.addressLabel.textColor = textColor;
         
         self.getTextLabel.textColor = textColor;
-        self.navigationController.navigationBar.tintColor = textColor;
         
         
-        NSLog(@"Resolving the Address");
+            //NSLog(@"Resolving the Address");
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-            NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
+                //NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
             if (error == nil && [placemarks count] > 0) {
                 placemark = [placemarks lastObject];
                 
@@ -296,7 +293,7 @@
                                           administrativeArea,
                                           country];
             } else {
-                NSLog(@"%@", error.debugDescription);
+                     NSLog(@"%@", error.debugDescription);
             }
         } ];
         
@@ -306,12 +303,7 @@
 -(BOOL)prefersStatusBarHidden{
     
     return YES;
-}
--(void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    if ([identifier isEqualToString:@"collectionSegue"]){
-        ColorCollectionViewController *destinationVC = [[ColorCollectionViewController alloc]init];
-        destinationVC.colorsArray = self.dataStore.colorArray;
-    }
+
 }
 @end
 

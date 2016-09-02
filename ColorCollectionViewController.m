@@ -10,6 +10,7 @@
 #import "ColorDataStore.h"
 #import "Color.h"
 @interface ColorCollectionViewController ()
+@property (retain, readwrite) ColorDataStore *dataStore;
 @end
 
 @implementation ColorCollectionViewController
@@ -20,21 +21,33 @@ static NSString * const reuseIdentifierForZero = @"emptyArray";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self reloadInputViews];
+    self.dataStore = [ColorDataStore sharedInstance];
+    [self.collectionView reloadData];
+    [self.collectionView layoutIfNeeded];
+//    [self configure cells];
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = NO;
-    
+         self.clearsSelectionOnViewWillAppear = NO;
+    ColorDataStore *dataStore = [ColorDataStore sharedInstance];
+    self.colorsArray = dataStore.colorArray;
         // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifierForCell];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifierForZero];
     
+    
         // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
         // Dispose of any resources that can be recreated.
 }
+
+-(BOOL)prefersStatusBarHidden{
+    
+    return YES;
+}
+
 
 /*
  #pragma mark - Navigation
@@ -50,11 +63,12 @@ static NSString * const reuseIdentifierForZero = @"emptyArray";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (self.colorsArray == nil || [self.colorsArray count] == 0){
+    [self reloadInputViews];
+    if (self.dataStore.colorArray == nil || [self.dataStore.colorArray count] == 0){
         return 1;
     }
     else{
-        NSLog([NSString stringWithFormat:@"%li", [self.colorsArray count]]);
+        NSLog([NSString stringWithFormat:@"%li *************************************", [self.colorsArray count]]);
     return [self.colorsArray count];
     }
 }
@@ -62,19 +76,19 @@ static NSString * const reuseIdentifierForZero = @"emptyArray";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.colorsArray count] == 0 || self.colorsArray == nil){
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifierForZero forIndexPath:indexPath];
+        [cell setBounds:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         return cell;
     }else{
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifierForCell forIndexPath:indexPath];
         cell.backgroundColor = [self.colorsArray[indexPath.row] derivedColor];
+        cell.layer.cornerRadius = (cell.bounds.size.width)/2.0;
+        NSLog(@"returning a cell");
             // Configure the cell
-        cell.layer.cornerRadius = 8.0f;
         return cell;
         
         
     }
 }
-
-#pragma mark <UICollectionViewDelegate>
 
 /*
  // Uncomment this method to specify if the specified item should be highlighted during tracking
