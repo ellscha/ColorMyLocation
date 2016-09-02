@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "ColorDataStore.h"
 #import "Color.h"
+#import "ColorCollectionViewController.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *bottomRightIcon;
@@ -284,7 +285,12 @@
     
     return YES;
 }
-
+-(void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if ([identifier isEqualToString:@"collectionSegue"]){
+        ColorCollectionViewController *destinationVC = [[ColorCollectionViewController alloc]init];
+        destinationVC.colorsArray = self.colorsArray;
+    }
+}
 @end
 
 

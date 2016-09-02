@@ -14,18 +14,19 @@
 
 @implementation ColorCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifierForCell = @"cell";
+static NSString * const reuseIdentifierForZero = @"emptyArray";
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    ColorDataStore *dataStore = [ColorDataStore sharedInstance];
-    self.colorsArray = dataStore.colorArray;
+    [self reloadInputViews];
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = NO;
     
         // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifierForCell];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifierForZero];
     
         // Do any additional setup after loading the view.
 }
@@ -45,7 +46,6 @@ static NSString * const reuseIdentifier = @"Cell";
  }
  */
 
-#pragma mark <UICollectionViewDataSource>
 
 
 
@@ -54,13 +54,14 @@ static NSString * const reuseIdentifier = @"Cell";
         return 1;
     }
     else{
+        NSLog([NSString stringWithFormat:@"%li", [self.colorsArray count]]);
     return [self.colorsArray count];
     }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.colorsArray count] == 0 || self.colorsArray == nil){
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"emptyArray" forIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifierForZero forIndexPath:indexPath];
         return cell;
     }else{
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
