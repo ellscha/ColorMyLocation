@@ -9,9 +9,11 @@
 #import "ColorPaletteTableViewController.h"
 #import "ColorDataStore.h"
 #import "Color.h"
+#import "ColorDetailViewController.h"
 
 @interface ColorPaletteTableViewController ()
 @property (readwrite, retain) ColorDataStore *dataStore;
+@property (nonatomic) NSUInteger selectedColor;
 @end
 
 @implementation ColorPaletteTableViewController
@@ -97,14 +99,16 @@
 }
 */
 
-/*
-#pragma mark - Navigation
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    ColorDetailViewController *destinationVC = [[ColorDetailViewController alloc]init];
+    
+//    destinationVC.color = [self.colorsArray];
 }
-*/
+
 
 @end
