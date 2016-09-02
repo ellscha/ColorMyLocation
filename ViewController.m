@@ -47,6 +47,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[UINavigationBar appearance]setTitleTextAttributes:(@"color", self.colorMyLocation)];
+    [[UINavigationBar appearance]setAlpha:0.3f];
     self.dataStore = [ColorDataStore sharedInstance];
     self.colorsArray = self.dataStore.colorArray;
     self.tapCount = 1;
@@ -223,7 +225,7 @@
         greenText = 1 - green;
         blueText = 1 - blue;
         UIColor *textColor = [UIColor colorWithRed:redText green:greenText blue:blueText alpha:self.alphaProperty];
-        
+//        [[UINavigationBar appearance]setTintColor:textColor];
         self.colorLabel.textColor = textColor;
         self.bottomRightIcon.textColor = textColor;
         self.altitudeLabel.textColor = textColor;
@@ -232,6 +234,7 @@
         self.addressLabel.textColor = textColor;
         
         self.getTextLabel.textColor = textColor;
+        self.navigationController.navigationBar.tintColor = textColor;
         
         
         NSLog(@"Resolving the Address");
